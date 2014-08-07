@@ -23,6 +23,7 @@ body {
 /*********************************************************
 HEADER
 **********************************************************/
+
 header {
 	text-align: center;
 	color: #160a47;
@@ -44,10 +45,10 @@ li {
 	background-color: green;
 	height: 100%;
 }
-#stopButton {
+#clearButton {
 	background-color: red;
 }
-#generationButton {
+#lifeButton {
 	background-color: blue;
 }
 
@@ -56,20 +57,21 @@ li {
 	vertical-align: center;
 }
 
+
+
 /*********************************************************
  FIELD
 **********************************************************/
 
 .row {
-	height: 40px;
+	height: 30px;
 }
 
 .row > div {
 	display: inline-block;
 	border: 1px solid black;
-	/*padding: 1px;*/
 	height: inherit;
-	width: 40px;
+	width: 30px;
 }
 
 .row:nth-of-type(1) > div{
@@ -95,6 +97,9 @@ li {
 .dead {
 	background-color: white;
 }
+
+
+
 /*********************************************************
  DIALOG
 **********************************************************/
@@ -111,4 +116,52 @@ li {
 
 #statistic{
 	background-color: inherit;
+}
+
+
+
+/*********************************************************
+ MEDIA QUERY
+**********************************************************/
+
+@media (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi){
+    .row {
+		height: 35px;
+	}
+
+	.row > div {
+		width: 35px;
+	}
+}
+
+/* 1.3 dpr */
+@media (-webkit-min-device-pixel-ratio: 1.3), (min-resolution: 124.8dpi){
+    .row {
+		height: 40px;
+	}
+
+	.row > div {
+		width: 40px;
+	}
+}
+
+/* 1.5 dpr */
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi){
+    .row {
+		height: 45px;
+	}
+
+	.row > div {
+		width: 45px;
+	}
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .row {
+		height: 70px;
+	}
+
+	.row > div {
+		width: 70px;
+	}
 }

@@ -46,7 +46,6 @@ var GameOfLifeModule = (function() {
          * @function
          */
         function onFieldClickHandler(ev) {
-            console.log("on click handler");
 
             var source = ev.srcElement;
             if (source.parentNode.className === "row" && !that.view.gameRun) {
@@ -79,6 +78,12 @@ var GameOfLifeModule = (function() {
 
             if (source.id === "startButton") {
                 startButtonClick(source);
+            } else if (source.id === "clearButton") {
+            	clearButtonClick();
+            } else if (source.id === "lifeButton") {
+            	oneLifeButton();
+            }else if (source.id in Templates) {
+            	templateButtonClick(source);
             }
 
             /**
@@ -94,37 +99,85 @@ var GameOfLifeModule = (function() {
             }
 
             /**
+             * Clear field
+             * @function
+             */
+            function clearButtonClick() {
+            	that.view.clearField();
+            }
+
+            /**
+             * Run only one generation
+             * @function
+             */
+            function oneLifeButton() {
+
+            	var newGeneration;
+
+            	if (that.view.gameRun) {
+            		that.view.gameRun = false;
+            		changeStartButton();
+            	}
+
+            	newGeneration = that.model.runGeneration()
+            	that.view.updateField(newGeneration);
+            }
+            /**
+             * Change start button to stop button
              * @function
              * @param {HTMLElement} source Button state
              */
-            function changeStartButton(source) {
-                console.log("view change start button ...");
+            function changeStartButton() {
+
+            	var startButton = that.view.buttons.querySelector("#startButton");
+
                 if (that.view.gameRun) {
-                	source.innerHTML = "Stop";
+                	startButton.innerHTML = "Stop";
                 } else {
-                	source.innerHTML = "Start";
+                	startButton.innerHTML = "Start";
                 }
             }
-        }
 
-        /**
-         * Update state of game continuesly while game running
-         * @function
-         */
-        function updateGame() {
-            if (that.view.gameRun) {
-                requestAnimationFrame(updateGame)
+            /**
+             * Draw template on the field
+             * @function
+             */
+            function templateButtonClick(source) {
+
+            	var template = Templates[source.id],
+            		aliveCells = that.model.markTemplate(template)
+
+            	that.view.gameRun = false;
+            	that.view.clearField();
+            	that.view.updateField(aliveCells);
             }
 
-            that.view.curTime = new Date().getTime();
+            /**
+	         * Update state of game continuesly while game running
+	         * @function
+	         */
+	        function updateGame() {
+	            if (that.view.gameRun) {
+	                requestAnimationFrame(updateGame)
+	            }
 
-            if ((that.view.curTime - that.view.prevTime) > ViewModule.GAME_SPEED && !that.view.pause) {
+	            that.view.curTime = new Date().getTime();
 
-                var newGeneration = that.model.runGeneration();
-                that.view.updateField(newGeneration);
+	            if ((that.view.curTime - that.view.prevTime) > ViewModule.GAME_SPEED && !that.view.pause) {
 
-                that.view.prevTime = that.view.curTime;
-            }
+	                var newGeneration = that.model.runGeneration();
+
+	                // if newGeneration empty stop animation
+	                if (!newGeneration.length) {
+	                	that.view.gameRun = false;
+	                	changeStartButton();
+	                }
+
+	                that.view.updateField(newGeneration);
+
+	                that.view.prevTime = that.view.curTime;
+	            }
+	        }
         }
 
 

@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="css/main.css">
+	<script defer src="js/template.js"></script>
 	<script defer src="js/field.js"></script>
 	<script defer src="js/view.js"></script>
 	<script defer src="js/GameOfLife.js"></script>
@@ -14,13 +15,14 @@
 		<h1>Game of Life</h1>
 		<div id="buttons">
 			<nav class="templates">
-				<li class="button"><div>template1</div></li>
-				<li class="button"><div>template2</div></li>
-				<li class="button"><div>template3</div></li>
+				<li class="button"><div id="universe">Universe</div></li>
+				<li class="button"><div id="glider">Glider</div></li>
+				<li class="button"><div id="cross">Cross</div></li>
 			</nav>
 			<nav class="controls">
 				<li><div id="startButton" class="button">Start</div></li>
-				<li><div id="generationButton" class="button">Life</div></li>
+				<li><div id="clearButton" class="button">Clear</div></li>
+				<li><div id="lifeButton" class="button">Life</div></li>
 			</nav>
 		</div>
 	</header>

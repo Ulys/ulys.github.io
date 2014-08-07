@@ -13,7 +13,7 @@ var FieldModule = (function() {
      * @constructor Field class
      */
     function Field() {
-        console.log("Field ...");
+        console.log("Field constructor ...");
 
         this.cells = null;
     }
@@ -25,7 +25,6 @@ var FieldModule = (function() {
         console.log("Field set cells ...");
 
         this.cells = cells;
-        console.dir(this.cells);
     }
 
     /**
@@ -33,21 +32,21 @@ var FieldModule = (function() {
      * @return {Array[HTMLElement]}
      */
     Field.prototype.runGeneration = function() {
-        console.log("Field run generation ...");
 
-        var willAlive = [], // Cells which will be alive in next generation
+        var temp,
+        	willAlive = [], // Cells which will be alive in next generation
             that = this;
 
         this.cells.forEach(function(row, rowNum) {
 
-            var temp = willAlive.concat(row.filter(function(element, colNum) {
+            temp = willAlive.concat(row.filter(function(element, colNum) {
 
                 var aliveNeighbors = Field._checkNeighborhood(colNum, rowNum, that.cells);
 
                 return Field._checkRules(element.className, aliveNeighbors);
             }));
+
             willAlive = temp;
-            console.log(willAlive);
         });
 
         return willAlive;
@@ -62,7 +61,6 @@ var FieldModule = (function() {
      * @return {Number} number of alive neighbors
      */
     Field._checkNeighborhood = function(col, row, cells) {
-        // console.log("Field check neighbors ...");
 
         var i, j,
             curCol = col - 1, // curCol, curY - coordiantes of left up
@@ -77,7 +75,7 @@ var FieldModule = (function() {
                 if (cells[curRow] && cells[curRow][curCol] &&
                     !(curRow === row && curCol === col)) {
 
-                    cells[curRow][curCol].className === "alive" && aliveNeighbors++;
+                    cells[curRow][curCol].className === ViewModule.aliveCell && aliveNeighbors++;
                 }
             }
 
@@ -117,7 +115,7 @@ var FieldModule = (function() {
      *				false - cell will be dead in next generation
      */
     Field._checkRules = function(curState, neighbors) {
-        // console.log("Field check rules ...");
+
         if (curState === "alive") {
 
             return Field.minNeighborsToLive === neighbors ||
@@ -127,5 +125,70 @@ var FieldModule = (function() {
         return neighbors === Field.bornNumber;
     }
 
+    /**
+     * Mark cells for template on game field
+     * @function
+     * @param {Array[Numbers]} template
+     * @return {Array[HTMLElement]} Cells which will be alive
+     */
+    Field.prototype.markTemplate = function (template) {
+
+    	var i, j, rowNum, colNum,
+    		aliveCells = [],
+    		startCoord = this._positionTemplate(template),
+    		row = startCoord.row,
+    		col = startCoord.col;
+    	console.log("rowNum " + row, "colNum " + col);
+    	for (i = 0, rowNum = template.length; i < rowNum; i++) {
+
+    		for (j = 0, colNum = template[0].length; j < colNum; j++) {
+
+    			if (this.cells[row + i][col + j] && template[i][j]) {
+
+    				aliveCells.push(this.cells[row + i][col + j]);
+    				// this.cells[row + i][col + j].className = ViewModule.aliveCell;
+    			}
+    		}
+    	}
+
+    	return aliveCells
+    }
+
+    /**
+     * Count position for template
+     * @private
+     * @function
+     * @param {Array[Integer]} template
+     * @return
+     * 	@typedef {
+	 *		row: {Integer},		Row number where template start
+	 *		col: {Integer}		Col number where template start
+     * }
+     */
+     Field.prototype._positionTemplate = function (template) {
+
+     	var startCol = 0,
+     		startRow = 0,
+     		templateHeight = template.length,
+     		templateWidth = template[0].length,
+     		fieldHeight = this.cells.length,
+     		fieldWidth = this.cells[0].length;
+
+     	/**
+     	 * If template less then field put it to center else
+     	 * else start from left up coner
+     	 */
+     	if (templateHeight < fieldHeight && templateWidth < fieldWidth) {
+
+     		startCol = Math.floor((fieldWidth - templateWidth) / 2);
+     		startRow = Math.floor((fieldHeight - templateHeight) / 2);
+     	}
+
+     	return {
+     		col: startCol,
+     		row: startRow
+     	}
+    }
     return Field;
+
 })();

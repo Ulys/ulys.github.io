@@ -43,6 +43,10 @@ var ViewModule = (function() {
     View.aliveCell = "alive";
 
     /**
+     * @const Width of cell
+     */
+    View.CELL_WIDTH = 30;
+    /**
      * @function create field
      */
     View.prototype.drawField = function() {
@@ -52,9 +56,9 @@ var ViewModule = (function() {
             field = document.createDocumentFragment();
 
         for (i = 0, rowNum = this.rowNumber; i < rowNum; i++) {
+
             row = document.createElement("div");
             row.className = "row";
-
             for (j = 0, colNum = this.colNumber; j < colNum; j++) {
 
                 cell = document.createElement("div");
@@ -100,11 +104,11 @@ var ViewModule = (function() {
      * @return {Number} number of cells in a row
      */
     function _countNumberOfColumns(container) {
-        var CELL_WIDTH = 40, //px standart cell width
-            HORIZONTAL_MARGINS = 100, //px horizontal margins
-            contWidth = container.clientWidth;
+        var HORIZONTAL_MARGINS = 100, //px horizontal margins
+            contWidth = container.clientWidth,
+            pixelRatio = window.devicePixelRatio;
 
-        return Math.floor((contWidth - HORIZONTAL_MARGINS) / CELL_WIDTH);
+        return Math.floor((contWidth - HORIZONTAL_MARGINS) / (View.CELL_WIDTH * pixelRatio));
     }
 
     /**
@@ -112,12 +116,12 @@ var ViewModule = (function() {
      * @return {Number} number of cells in a row
      */
     function _countNumberOfRows() {
-        var CELL_WIDTH = 40, //px standart cell width
-            HEADER_HEIGHT = 100, //px header height
+        var HEADER_HEIGHT = 100, //px header height
             VERTICAL_MARGINS = 100, //px vertical margins
-            winHeight = window.innerHeight;
+            winHeight = window.innerHeight,
+            pixelRatio = window.devicePixelRatio;
 
-        return Math.floor((winHeight - HEADER_HEIGHT - VERTICAL_MARGINS) / CELL_WIDTH);
+        return Math.floor((winHeight - HEADER_HEIGHT - VERTICAL_MARGINS) / (View.CELL_WIDTH * pixelRatio));
     }
 
     /**
