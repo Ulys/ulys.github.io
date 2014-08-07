@@ -1,0 +1,114 @@
+/********************************************************
+GENERAL
+**********************************************************/
+
+body {
+	background-color: #9c0f5f;
+}
+
+#container {
+	max-width: 940px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+	height: 0;
+}
+
+
+/*********************************************************
+HEADER
+**********************************************************/
+header {
+	text-align: center;
+	color: #160a47;
+}
+
+li {
+	list-style: none;
+	display: inline-block;
+	font-size: 1.5rem;
+	margin: 2px 2px 5px;
+	padding: 0 7px;
+}
+
+.controls > li{
+	height: 3rem;
+	width: 5rem;
+}
+#startButton {
+	background-color: green;
+	height: 100%;
+}
+#stopButton {
+	background-color: red;
+}
+#generationButton {
+	background-color: blue;
+}
+
+.button {
+	border: solid 2px black;
+	vertical-align: center;
+}
+
+/*********************************************************
+ FIELD
+**********************************************************/
+
+.row {
+	height: 20px;
+}
+
+.row > div {
+	display: inline-block;
+	border: 1px solid black;
+	/*padding: 1px;*/
+	height: inherit;
+	width: 20px;
+}
+
+.row:nth-of-type(1) > div{
+	border-top: 3px solid #160a47;
+}
+
+.row:nth-last-of-type(1) > div {
+	border-bottom:3px solid #160a47;
+}
+
+.row > div:nth-of-type(1) {
+	border-left: 3px solid #160a47;
+}
+
+.row > div:nth-last-of-type(1) {
+	border-right: 3px solid #160a47;
+}
+
+.alive {
+	background-color: black;
+}
+
+.dead {
+	background-color: white;
+}
+/*********************************************************
+ DIALOG
+**********************************************************/
+
+#end {
+	min-width: 240px;
+	height: 10%;
+	padding: 10px 0;
+	margin: 10% 35% 0;
+	border: 3px solid #160a47;
+	font-size: 1.25em;
+	background-color: white;
+}
+
+#statistic{
+	background-color: inherit;
+}
