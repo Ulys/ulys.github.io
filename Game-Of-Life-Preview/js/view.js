@@ -105,9 +105,9 @@ var ViewModule = (function() {
      */
     function _countNumberOfColumns(container) {
         var cellWidth,
-            horizontalMatrgins = 100, //px horizontal margins
-            contWidth = container.clientWidth,
-            pixelRatio = window.devicePixelRatio;
+            pixelRatio = window.devicePixelRatio,
+            horizontalMatrgins = 100 * pixelRatio, //px horizontal margins
+            contWidth = container.clientWidth;
 
             cellWidth = pixelRatio * View.CELL_WIDTH;
 
@@ -120,10 +120,10 @@ var ViewModule = (function() {
      */
     function _countNumberOfRows() {
         var cellWidth,
-            headerHeight = 100, //px header height
-            verticalMargins = 100, //px vertical margins
             winHeight = window.innerHeight,
-            pixelRatio = window.devicePixelRatio;
+            pixelRatio = window.devicePixelRatio,
+            headerHeight = 100 * pixelRatio, //px header height
+            verticalMargins = 100 * pixelRatio; //px vertical margins
 
             cellWidth = pixelRatio * View.CELL_WIDTH;
 
