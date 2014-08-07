@@ -126,7 +126,7 @@ var ViewModule = (function() {
             verticalMargins = 100 * pixelRatio; //px vertical margins
 
             cellWidth = pixelRatio * View.CELL_WIDTH;
-
+            alert(pixelRatio + " " + cellWidth + " " + window.innerHeight)
         return Math.floor((winHeight - headerHeight - verticalMargins) / cellWidth);
     }
 
