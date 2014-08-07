@@ -158,10 +158,10 @@ li {
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .row {
-		height: 70px;
+		height: 60px;
 	}
 
 	.row > div {
-		width: 70px;
+		width: 60px;
 	}
 }
