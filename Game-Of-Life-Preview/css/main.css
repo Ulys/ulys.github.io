@@ -43,7 +43,6 @@ li {
 }
 #startButton {
 	background-color: green;
-	height: 100%;
 }
 #clearButton {
 	background-color: red;
@@ -157,6 +156,14 @@ li {
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	.controls > li{
+		height: 5rem;
+		width: 7rem;
+	}
+
+	.button {
+		height: 100%;
+	}
     .row {
 		height: 60px;
 	}
