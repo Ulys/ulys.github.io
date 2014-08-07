@@ -104,11 +104,14 @@ var ViewModule = (function() {
      * @return {Number} number of cells in a row
      */
     function _countNumberOfColumns(container) {
-        var HORIZONTAL_MARGINS = 100, //px horizontal margins
+        var cellWidth,
+            horizontalMatrgins = 100, //px horizontal margins
             contWidth = container.clientWidth,
             pixelRatio = window.devicePixelRatio;
 
-        return Math.floor((contWidth - HORIZONTAL_MARGINS) / (View.CELL_WIDTH * pixelRatio));
+            cellWidth = pixelRatio * View.CELL_WIDTH;
+
+        return Math.floor((contWidth - horizontalMatrgins) / cellWidth);
     }
 
     /**
@@ -116,12 +119,15 @@ var ViewModule = (function() {
      * @return {Number} number of cells in a row
      */
     function _countNumberOfRows() {
-        var HEADER_HEIGHT = 100, //px header height
-            VERTICAL_MARGINS = 100, //px vertical margins
+        var cellWidth,
+            headerHeight = 100, //px header height
+            verticalMargins = 100, //px vertical margins
             winHeight = window.innerHeight,
             pixelRatio = window.devicePixelRatio;
 
-        return Math.floor((winHeight - HEADER_HEIGHT - VERTICAL_MARGINS) / (View.CELL_WIDTH * pixelRatio));
+            cellWidth = pixelRatio * View.CELL_WIDTH;
+
+        return Math.floor((winHeight - headerHeight - verticalMargins) / cellWidth);
     }
 
     /**
