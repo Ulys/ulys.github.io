@@ -100,7 +100,7 @@ var ViewModule = (function() {
      * @return {Number} number of cells in a row
      */
     function _countNumberOfColumns(container) {
-        var CELL_WIDTH = 20, //px standart cell width
+        var CELL_WIDTH = 40, //px standart cell width
             HORIZONTAL_MARGINS = 100, //px horizontal margins
             contWidth = container.clientWidth;
 
@@ -112,7 +112,7 @@ var ViewModule = (function() {
      * @return {Number} number of cells in a row
      */
     function _countNumberOfRows() {
-        var CELL_WIDTH = 20, //px standart cell width
+        var CELL_WIDTH = 40, //px standart cell width
             HEADER_HEIGHT = 100, //px header height
             VERTICAL_MARGINS = 100, //px vertical margins
             winHeight = window.innerHeight;
