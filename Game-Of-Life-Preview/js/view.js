@@ -7,6 +7,7 @@
  * @module View module
  */
 var ViewModule = (function() {
+    "use strict";
 
     /**
      * @constructor
@@ -18,11 +19,10 @@ var ViewModule = (function() {
 
         this.container = container;
         this.buttons = buttons;
-        this.colNumber = _countNumberOfColumns(container);
-        this.rowNumber = _countNumberOfRows();
+        this.colNumber = countNumberOfColumns(container);
+        this.rowNumber = countNumberOfRows();
         this.cells = null;
         this.gameRun = false;
-        this.pause = false;
         this.curTime = 0;
         this.prevTime = 0;
     }
@@ -46,6 +46,7 @@ var ViewModule = (function() {
      * @const Width of cell
      */
     View.CELL_WIDTH = 30;
+
     /**
      * @function create field
      */
@@ -59,6 +60,7 @@ var ViewModule = (function() {
 
             row = document.createElement("div");
             row.className = "row";
+
             for (j = 0, colNum = this.colNumber; j < colNum; j++) {
 
                 cell = document.createElement("div");
@@ -71,14 +73,14 @@ var ViewModule = (function() {
 
         this.container.appendChild(field);
         this._saveCells();
-    }
+    };
+
     /**
      * Get cells from container
      * @function
      * @private
      */
     View.prototype._saveCells = function() {
-        console.log("View save cells ...");
 
         var i, j, row, rowNum, colNum, cell,
             allRows = this.container.children,
@@ -97,13 +99,14 @@ var ViewModule = (function() {
         }
 
         this.cells = cellsArray;
-    }
+    };
 
     /**
      * @function count number of cell in row respectively to the screen size
      * @return {Number} number of cells in a row
      */
-    function _countNumberOfColumns(container) {
+    function countNumberOfColumns(container) {
+
         var cellWidth,
             pixelRatio = window.devicePixelRatio,
             horizontalMatrgins = 100 * pixelRatio, //px horizontal margins
@@ -111,6 +114,9 @@ var ViewModule = (function() {
 
             cellWidth = pixelRatio * View.CELL_WIDTH;
 
+            /**
+             * Math.floor() to prevent decimal
+             */
         return Math.floor((contWidth - horizontalMatrgins) / cellWidth);
     }
 
@@ -118,7 +124,8 @@ var ViewModule = (function() {
      * @function count number of cell in column respectively to the screen size
      * @return {Number} number of cells in a row
      */
-    function _countNumberOfRows() {
+    function countNumberOfRows() {
+
         var cellWidth,
             winHeight = window.innerHeight,
             pixelRatio = window.devicePixelRatio,
@@ -127,7 +134,11 @@ var ViewModule = (function() {
 
             cellWidth = pixelRatio * View.CELL_WIDTH;
 
-        return Math.floor((winHeight - headerHeight - verticalMargins) / cellWidth);
+             /**
+             * Math.floor() to prevent decimal
+             */
+        return Math.floor((winHeight - headerHeight -
+                        verticalMargins) / cellWidth);
     }
 
     /**
@@ -136,24 +147,25 @@ var ViewModule = (function() {
      * @param {Array[HTMLElements]} aliveCells
      */
     View.prototype.updateField = function(aliveCells) {
-        console.log("View update field ...");
+
         this.clearField();
         this._drawAliveCells(aliveCells);
-    }
+    };
 
     /**
      * Paint all cells to dead state
      * @function
      */
     View.prototype.clearField = function() {
-        console.log("View clear field ...");
+
         this.cells.forEach(function(row) {
 
             row.forEach(function(el) {
+
                 el.className = View.deadCell;
             });
         });
-    }
+    };
 
     /**
      * @function
@@ -161,11 +173,12 @@ var ViewModule = (function() {
      * @param {Array[HTMLElements]} aliveCells
      */
     View.prototype._drawAliveCells = function(aliveCells) {
-        console.log("View draw alive cells ...");
+
         aliveCells.forEach(function(el) {
+
             el.className = View.aliveCell;
         });
-    }
+    };
 
     return View;
 })();
